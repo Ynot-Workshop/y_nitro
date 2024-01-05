@@ -1,3 +1,5 @@
+lib.versionCheck('Qbox-project/qbx_nitro')
+
 exports.qbx_core:CreateUseableItem("nitrous", function(source)
     TriggerClientEvent('qbx_nitro:client:LoadNitrous', source)
 end)
