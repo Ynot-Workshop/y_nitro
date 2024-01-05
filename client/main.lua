@@ -1,6 +1,6 @@
 local config = require 'config.client'
 local nitrousActivated = false
-local nitrousBoost = config.nitrousBoost 
+local nitrousBoost = config.nitrousBoost
 local Fxs = {}
 local nitroDelay = false
 
@@ -19,6 +19,10 @@ RegisterNetEvent('qbx_nitro:client:LoadNitrous', function()
         return exports.qbx_core:Notify(locale('notify.not_in_vehicle'), 'error')
     end
 
+    if config.turboRequired and not IsToggleModOn(cache.vehicle, 18) then
+        return exports.qbx_core:Notify(locale('notify.need_turbo'), 'error')
+    end
+    
     if cache.seat ~= -1 then
         return exports.qbx_core:Notify(locale('notify.must_be_driver'), "error")
     end
@@ -102,7 +106,7 @@ local function nitrousLoop()
 end
 
 lib.onCache('vehicle', function(vehicle)
-    if vehicle then
+    if vehicle and (not config.turboRequired or IsToggleModOn(vehicle, 18)) then
         SetTimeout(750, function()
             nitrousLoop()
         end)
