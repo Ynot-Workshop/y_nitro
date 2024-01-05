@@ -48,6 +48,7 @@ local function nitrousUseLoop()
         nitroDelay = false
     end)
     CreateThread(function()
+        local Plate = trim(GetVehicleNumberPlateText(cache.vehicle))
         while nitrousActivated and cache.vehicle do
             if Entity(cache.vehicle).state.nitro - 0.25 >= 0 then
                 SetVehicleEnginePowerMultiplier(cache.vehicle, nitrousBoost)
@@ -56,12 +57,11 @@ local function nitrousUseLoop()
                 Entity(cache.vehicle).state:set("nitro", Entity(cache.vehicle).state.nitro - 0.25, true)
             else
                 SetVehicleBoostActive(cache.vehicle, 0)
-                SetVehicleEnginePowerMultiplier(cache.vehicle, LastEngineMultiplier)
+                SetVehicleEnginePowerMultiplier(cache.vehicle, 1.0)
                 SetVehicleEngineTorqueMultiplier(cache.vehicle, 1.0)
                 for index, _ in pairs(Fxs) do
                     StopParticleFxLooped(Fxs[index], 1)
-                    TriggerServerEvent('qbx_nitro:server:StopSync',
-                        trim(GetVehicleNumberPlateText(cache.vehicle)))
+                    TriggerServerEvent('qbx_nitro:server:StopSync', Plate)
                     Fxs[index] = nil
                 end
                 StopScreenEffect("RaceTurbo")
@@ -70,11 +70,11 @@ local function nitrousUseLoop()
             end
             if IsControlJustReleased(0, 36) and cache.seat == -1 then
                 SetVehicleBoostActive(cache.vehicle, 0)
-                SetVehicleEnginePowerMultiplier(cache.vehicle, LastEngineMultiplier)
+                SetVehicleEnginePowerMultiplier(cache.vehicle, 1.0)
                 SetVehicleEngineTorqueMultiplier(cache.vehicle, 1.0)
                 for index, _ in pairs(Fxs) do
                     StopParticleFxLooped(Fxs[index], 1)
-                    TriggerServerEvent('qbx_nitro:server:StopSync', trim(GetVehicleNumberPlateText(veh)))
+                    TriggerServerEvent('qbx_nitro:server:StopSync', Plate)
                     Fxs[index] = nil
                 end
                 StopScreenEffect("RaceTurbo")
