@@ -1,0 +1,11 @@
+{
+    "notify": {
+        "already_have_nos": "You already have NOS!",
+        "not_in_vehicle": "You are not in a vehicle",
+        "must_be_driver": "You must be the driver!",
+        "canceled": "Canceled.."
+    },
+    "progress": {
+        "connecting": "Connecting NOS.."
+    }
+}
