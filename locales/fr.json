@@ -3,7 +3,8 @@
         "already_have_nos": "Vous avez déjà du NOS!",
         "not_in_vehicle": "Vous n'êtes pas dans un véhicule",
         "must_be_driver": "Vous devez être conducteur!",
-        "canceled": "Annulé.."
+        "canceled": "Annulé..",
+        "need_turbo": "Le véhicule doit être équipé d'un turbo!"
     },
     "progress": {
         "connecting": "Connecte le NOS.."
