@@ -27,8 +27,8 @@ local p_flame_location = {
     exhaust_16
 }
 
-local ParticleDict = "veh_xs_vehicle_mods"
-local ParticleFx = "veh_nitrous"
+local ParticleDict = 'veh_xs_vehicle_mods'
+local ParticleFx = 'veh_nitrous'
 local ParticleSize = 1.4
 
 local NOSPFX = {}
@@ -78,8 +78,8 @@ end
 local function stopBoosting(vehicle)
     SetVehicleBoostActive(vehicle, false)
     setMultipliers(vehicle, true)
-    Entity(vehicle).state:set("nitroFlames", false, true)
-    StopScreenEffect("RaceTurbo")
+    Entity(vehicle).state:set('nitroFlames', false, true)
+    StopScreenEffect('RaceTurbo')
     nitrousActivated = false
 end
 
@@ -96,11 +96,11 @@ local function nitrousUseLoop()
             if vehicleState.nitro - 0.25 >= 0 then
                 setMultipliers(cache.vehicle, false)
                 SetEntityMaxSpeed(cache.vehicle, 999.0)
-                StartScreenEffect("RaceTurbo", 0, 0)
-                vehicleState:set("nitro", vehicleState.nitro - 0.25, true)
+                StartScreenEffect('RaceTurbo', 0, 0)
+                vehicleState:set('nitro', vehicleState.nitro - 0.25, true)
             else
                 stopBoosting(cache.vehicle)
-                vehicleState:set("nitro", 0, true)
+                vehicleState:set('nitro', 0, true)
             end
             if IsControlJustReleased(0, 36) and cache.seat == -1 then
                 stopBoosting(cache.vehicle)
@@ -129,7 +129,7 @@ local function nitrousLoop()
             if IsVehicleEngineOn(cache.vehicle) and (vehicleState?.nitro or 0) > 0 then
                 sleep = 0
                 if IsControlJustPressed(0, 36) and not nitroDelay then
-                    vehicleState:set("nitroFlames", true, true)
+                    vehicleState:set('nitroFlames', true, true)
                     nitrousUseLoop()
                 end
             else
@@ -171,7 +171,7 @@ RegisterNetEvent('qbx_nitro:client:LoadNitrous', function()
     end
 
     if cache.seat ~= -1 then
-        return exports.qbx_core:Notify(locale('notify.must_be_driver'), "error")
+        return exports.qbx_core:Notify(locale('notify.must_be_driver'), 'error')
     end
 
     local vehicleState = Entity(cache.vehicle).state

@@ -16,8 +16,8 @@ client_scripts {
 server_script 'server/main.lua'
 
 files {
-    "config/client.lua",
-    "locales/*.json"
+    'config/client.lua',
+    'locales/*.json'
 }
 
 lua54 'yes'
