@@ -9,22 +9,22 @@ local function trim(value)
 end
 
 local p_flame_location = {
-    exhaust,
-    exhaust_2,
-    exhaust_3,
-    exhaust_4,
-    exhaust_5,
-    exhaust_6,
-    exhaust_7,
-    exhaust_8,
-    exhaust_9,
-    exhaust_10,
-    exhaust_11,
-    exhaust_12,
-    exhaust_13,
-    exhaust_14,
-    exhaust_15,
-    exhaust_16
+    'exhaust',
+    'exhaust_2',
+    'exhaust_3',
+    'exhaust_4',
+    'exhaust_5',
+    'exhaust_6',
+    'exhaust_7',
+    'exhaust_8',
+    'exhaust_9',
+    'exhaust_10',
+    'exhaust_11',
+    'exhaust_12',
+    'exhaust_13',
+    'exhaust_14',
+    'exhaust_15',
+    'exhaust_16'
 }
 
 local ParticleDict = 'veh_xs_vehicle_mods'
