@@ -8,24 +8,23 @@ local function trim(value)
     return (string.gsub(value, '^%s*(.-)%s*$', '%1'))
 end
 
--- sometimes it's reversed i think?
 local p_flame_location = {
-    exhaust = 180,
-    exhaust_2 = 180,
-    exhaust_3 = 180,
-    exhaust_4 = 180,
-    exhaust_5 = 180,
-    exhaust_6 = 180,
-    exhaust_7 = 180,
-    exhaust_8 = 180,
-    exhaust_9 = 180,
-    exhaust_10 = 180,
-    exhaust_11 = 180,
-    exhaust_12 = 180,
-    exhaust_13 = 180,
-    exhaust_14 = 180,
-    exhaust_15 = 180,
-    exhaust_16 = 180,
+    exhaust,
+    exhaust_2,
+    exhaust_3,
+    exhaust_4,
+    exhaust_5,
+    exhaust_6,
+    exhaust_7,
+    exhaust_8,
+    exhaust_9,
+    exhaust_10,
+    exhaust_11,
+    exhaust_12,
+    exhaust_13,
+    exhaust_14,
+    exhaust_15,
+    exhaust_16
 }
 
 local ParticleDict = "veh_xs_vehicle_mods"
@@ -41,7 +40,8 @@ local function syncFlames(vehicle)
     if NOSPFX[trimmedPlate] == nil then
         NOSPFX[trimmedPlate] = {}
     end
-    for bone, rotation in pairs(p_flame_location) do
+    for i = 1, #p_flame_location do
+        local bone = p_flame_location[i]
         if NOSPFX[trimmedPlate][bone] == nil then
             NOSPFX[trimmedPlate][bone] = {}
         end
@@ -54,7 +54,7 @@ local function syncFlames(vehicle)
                 SetPtfxAssetNextCall(ParticleDict)
                 UseParticleFxAssetNextCall(ParticleDict)
                 NOSPFX[trimmedPlate][bone].pfx = StartParticleFxLoopedOnEntityBone(
-                    ParticleFx, vehicle, 0.0, -0.05, 0.0, rotation, 0.0, 0.0, GetEntityBoneIndexByName(vehicle, bone),
+                    ParticleFx, vehicle, 0.0, -0.05, 0.0, 180, 0.0, 0.0, GetEntityBoneIndexByName(vehicle, bone),
                     ParticleSize, 0.0, 0.0, 0.0)
             end
         end
