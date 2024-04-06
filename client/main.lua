@@ -188,7 +188,7 @@ RegisterNetEvent('qbx_nitro:client:LoadNitrous', function()
                 combat = true
             }
     }) then -- if completed
-        TriggerServerEvent('qbx_nitro:server:LoadNitrous', NetworkGetNetworkIdFromEntity(cache.vehicle))
+        TriggerServerEvent('qbx_nitro:server:LoadNitrous', VehToNet(cache.vehicle))
     else        -- if canceled
         exports.qbx_core:Notify(locale('notify.canceled'), 'error')
     end
