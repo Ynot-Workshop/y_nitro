@@ -35,7 +35,7 @@ local function nitrousUseLoop()
                 vehicleState:set('nitro', vehicleState.nitro - 0.25, true)
                 vehicleState:set('nitroPurge', (vehicleState.nitroPurge or 0) + 1, true)
                 if vehicleState.nitroPurge >= 100 then
-                    exports.qbx_core:notify(locale('notify.needs_purge'), 'error')
+                    exports.qbx_core:Notify(locale('notify.needs_purge'), 'error')
                     stopBoosting()
                 end
             else
