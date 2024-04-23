@@ -119,55 +119,55 @@ qbx.entityStateHandler('purgeNitro', function(veh, netId, value)
     purge[veh] = {left = leftPurge, right = rightPurge}
 end)
 
-local NitrousLoop = false
-local function nitrousLoop()
-    if not cache.vehicle or cache.seat ~= -1 then return end
-    local sleep, vehicleState = 0, Entity(cache.vehicle)?.state
-    NitrousLoop = true
-    CreateThread(function()
-        while cache.vehicle and NitrousLoop do
-            if IsVehicleEngineOn(cache.vehicle) then
-                sleep = 0
-                if (vehicleState?.nitro or 0) > 0 and (vehicleState.nitroPurge or 0) < 100 then
-                    if IsControlJustPressed(0, 36) and not nitroDelay then
-                        vehicleState:set('nitroFlames', true, true)
-                        nitrousUseLoop()
-                    end
-                    if IsControlJustReleased(0, 36) and cache.seat == -1 then
-                        stopBoosting()
-                    end
-                end
-                if (vehicleState?.nitroPurge or 0) > 0 then
-                    if not nitrousActivated and IsControlJustPressed(0, 21) then
-                        vehicleState:set('purgeNitro', true, true)
-                        nitrousPurgeLoop()
-                    end
-                    if IsControlJustReleased(0, 21) and cache.seat == -1 then
-                        stopPurging()
-                    end
-                end
-            else
-                sleep = 1000
-            end
-            Wait(sleep)
+local nitrousKeybind = lib.addKeybind({
+    name = 'nitrous',
+    description = 'Use Nitrous',
+    defaultKey = 'LCONTROL',
+    onPressed = function(_)
+        local vehicleState = Entity(cache.vehicle).state
+        if nitroDelay  or nitrousActivated then return end
+        if (vehicleState?.nitro or 0) > 0 and (vehicleState.nitroPurge or 0) < 100 then
+            vehicleState:set('nitroFlames', true, true)
+            nitrousUseLoop()
         end
-    end)
-end
+    end,
+    onReleased = function(_)
+        stopBoosting()
+    end
+})
+
+local purgeKeybind = lib.addKeybind({
+    name = 'purge',
+    description = 'Purge Nitrous',
+    defaultKey = 'LSHIFT',
+    onPressed = function(_)
+        local vehicleState = Entity(cache.vehicle).state
+        if not nitrousActivated and (vehicleState?.nitroPurge or 0) > 0 then
+            vehicleState:set('purgeNitro', true, true)
+            nitrousPurgeLoop()
+        end
+    end,
+    onReleased = function(_)
+        stopPurging()
+    end
+})
+
 
 lib.onCache('seat', function(seat)
     if seat ~= -1 then
+        nitrousKeybind:disable(true)
+        purgeKeybind:disable(true)
         NitrousLoop = false
         return
     end
-    SetTimeout(750, nitrousLoop)
+
+    if config.turboRequired and not IsToggleModOn(cache.vehicle, 18) then return end
+    nitrousKeybind:disable(false)
+    purgeKeybind:disable(false)
 end)
 
 lib.onCache('vehicle', function(vehicle)
-    if vehicle and (not config.turboRequired or IsToggleModOn(vehicle, 18)) then
-        SetTimeout(750, function()
-            nitrousLoop()
-        end)
-    else
+    if not vehicle then
         if nitrousActivated then
             nitrousActivated = false
             stopBoosting()
@@ -179,22 +179,26 @@ lib.onCache('vehicle', function(vehicle)
     end
 end)
 
-RegisterNetEvent('qbx_nitro:client:LoadNitrous', function()
+lib.callback.register('qbx_nitro:client:LoadNitrous', function()
     if not cache.vehicle or IsThisModelABike(cache.vehicle) then
-        return exports.qbx_core:Notify(locale('notify.not_in_vehicle'), 'error')
+        exports.qbx_core:Notify(locale('notify.not_in_vehicle'), 'error')
+        return false
     end
 
     if config.turboRequired and not IsToggleModOn(cache.vehicle, 18) then
-        return exports.qbx_core:Notify(locale('notify.need_turbo'), 'error')
+        exports.qbx_core:Notify(locale('notify.need_turbo'), 'error')
+        return false
     end
 
     if cache.seat ~= -1 then
-        return exports.qbx_core:Notify(locale('notify.must_be_driver'), 'error')
+        exports.qbx_core:Notify(locale('notify.must_be_driver'), 'error')
+        return false
     end
 
     local vehicleState = Entity(cache.vehicle).state
     if vehicleState.nitro and vehicleState.nitro > 0 then
-        return exports.qbx_core:Notify(locale('notify.already_have_nos'), 'error')
+        exports.qbx_core:Notify(locale('notify.already_have_nos'), 'error')
+        return false
     end
 
     if lib.progressBar({
@@ -205,9 +209,10 @@ RegisterNetEvent('qbx_nitro:client:LoadNitrous', function()
             disable = {
                 combat = true
             }
-        }) then -- if completed
-        TriggerServerEvent('qbx_nitro:server:LoadNitrous', VehToNet(cache.vehicle))
+    }) then -- if completed
+        return VehToNet(cache.vehicle)
     else    -- if canceled
         exports.qbx_core:Notify(locale('notify.canceled'), 'error')
+        return false
     end
 end)
