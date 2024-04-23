@@ -4,7 +4,8 @@
         "not_in_vehicle": "Vous n'êtes pas dans un véhicule",
         "must_be_driver": "Vous devez être conducteur!",
         "canceled": "Annulé..",
-        "need_turbo": "Le véhicule doit être équipé d'un turbo!"
+        "need_turbo": "Le véhicule doit être équipé d'un turbo!",
+        "needs_purge": "Le système doit être purgé pour ré-utiliser le NOS."
     },
     "progress": {
         "connecting": "Connecte le NOS.."

@@ -1,0 +1,12 @@
+{
+    "notify": {
+        "already_have_Nitro": "Você já possui Nitro!",
+        "not_in_vehicle": "Você não está em um veículo",
+        "must_be_driver": "Você deve ser o motorista!",
+        "canceled": "Cancelado...",
+        "need_turbo" : "O veículo precisa de um turbo para usar Nitro!"
+    },
+    "progress": {
+        "connecting": "Conectando Nitro.."
+    }
+}
