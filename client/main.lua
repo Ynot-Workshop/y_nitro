@@ -124,6 +124,7 @@ local nitrousKeybind = lib.addKeybind({
     description = 'Use Nitrous',
     defaultKey = 'LCONTROL',
     onPressed = function(_)
+        if not cache.vehicle then return end
         local vehicleState = Entity(cache.vehicle).state
         if nitroDelay  or nitrousActivated then return end
         if (vehicleState?.nitro or 0) > 0 and (vehicleState.nitroPurge or 0) < 100 then
@@ -132,6 +133,7 @@ local nitrousKeybind = lib.addKeybind({
         end
     end,
     onReleased = function(_)
+        if not cache.vehicle then return end
         stopBoosting()
     end
 })
@@ -141,6 +143,7 @@ local purgeKeybind = lib.addKeybind({
     description = 'Purge Nitrous',
     defaultKey = 'LSHIFT',
     onPressed = function(_)
+        if not cache.vehicle then return end
         local vehicleState = Entity(cache.vehicle).state
         if not nitrousActivated and (vehicleState?.nitroPurge or 0) > 0 then
             vehicleState:set('purgeNitro', true, true)
@@ -148,6 +151,7 @@ local purgeKeybind = lib.addKeybind({
         end
     end,
     onReleased = function(_)
+        if not cache.vehicle then return end
         stopPurging()
     end
 })
