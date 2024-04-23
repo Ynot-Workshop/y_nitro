@@ -72,7 +72,6 @@ end
 qbx.entityStateHandler('nitroFlames', function(veh, netId, value)
     if not veh or not DoesEntityExist(veh) then return end
 
-    lib.requestNamedPtfxAsset("veh_xs_vehicle_mods")
     SetVehicleNitroEnabled(veh, value)
     EnableVehicleExhaustPops(veh, not value)
     SetVehicleBoostActive(veh, value)
@@ -98,24 +97,24 @@ qbx.entityStateHandler('purgeNitro', function(veh, netId, value)
     local pos
     local off
 
-    bone = GetEntityBoneIndexByName(veh, "bonnet")
+    bone = GetEntityBoneIndexByName(veh, 'bonnet')
     if bone == -1 then
-        bone = GetEntityBoneIndexByName(veh, "engine")
+        bone = GetEntityBoneIndexByName(veh, 'engine')
     end
 
     pos = GetWorldPositionOfEntityBone(veh, bone)
     off = GetOffsetFromEntityGivenWorldCoords(veh, pos.x, pos.y, pos.z)
 
-    if bone == GetEntityBoneIndexByName(veh, "bonnet") then
+    if bone == GetEntityBoneIndexByName(veh, 'bonnet') then
         off += vec3(0.0, 0.05, 0)
     else
         off += vec3(0.0, -0.2, 0.2)
     end
 
-    UseParticleFxAssetNextCall("core")
-    local leftPurge = StartParticleFxLoopedOnEntity("ent_sht_steam", veh, off.x - 0.5, off.y, off.z, 40.0, -20.0, 0.0, 0.3, false, false, false)
-    UseParticleFxAssetNextCall("core")
-    local rightPurge = StartParticleFxLoopedOnEntity("ent_sht_steam", veh, off.x + 0.5, off.y, off.z, 40.0, 20.0, 0.0, 0.3, false, false, false)
+    UseParticleFxAssetNextCall('core')
+    local leftPurge = StartParticleFxLoopedOnEntity('ent_sht_steam', veh, off.x - 0.5, off.y, off.z, 40.0, -20.0, 0.0, 0.3, false, false, false)
+    UseParticleFxAssetNextCall('core')
+    local rightPurge = StartParticleFxLoopedOnEntity('ent_sht_steam', veh, off.x + 0.5, off.y, off.z, 40.0, 20.0, 0.0, 0.3, false, false, false)
     purge[veh] = {left = leftPurge, right = rightPurge}
 end)
 
