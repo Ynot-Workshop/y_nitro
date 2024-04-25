@@ -159,16 +159,14 @@ local purgeKeybind = lib.addKeybind({
 
 
 lib.onCache('seat', function(seat)
+    nitrousKeybind:disable(seat ~= -1)
+    purgeKeybind:disable(seat ~= -1)
     if seat ~= -1 then
-        nitrousKeybind:disable(true)
-        purgeKeybind:disable(true)
         NitrousLoop = false
         return
     end
 
     if config.turboRequired and not IsToggleModOn(cache.vehicle, 18) then return end
-    nitrousKeybind:disable(false)
-    purgeKeybind:disable(false)
 end)
 
 lib.onCache('vehicle', function(vehicle)
