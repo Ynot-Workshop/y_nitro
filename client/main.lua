@@ -122,6 +122,7 @@ local nitrousKeybind = lib.addKeybind({
     name = 'nitrous',
     description = 'Use Nitrous',
     defaultKey = 'LCONTROL',
+    disabled = true,
     onPressed = function(_)
         if not cache.vehicle then return end
         local vehicleState = Entity(cache.vehicle).state
@@ -141,6 +142,7 @@ local purgeKeybind = lib.addKeybind({
     name = 'purge',
     description = 'Purge Nitrous',
     defaultKey = 'LSHIFT',
+    disabled = true,
     onPressed = function(_)
         if not cache.vehicle then return end
         local vehicleState = Entity(cache.vehicle).state
