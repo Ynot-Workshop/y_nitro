@@ -1,0 +1,13 @@
+{
+    "notify": {
+        "already_have_nos": "既にNOSが装着済みです！",
+        "not_in_vehicle": "車両に乗っていません",
+        "must_be_driver": "運転席に座っている必要があります！",
+        "canceled": "キャンセルしました...",
+        "need_turbo": "NOSを使用するにはターボが必要です！",
+        "needs_purge": "NOSを継続して使用するにはシステムをパージしてください。"
+    },
+    "progress": {
+        "connecting": "NOSを接続中..."
+    }
+}
