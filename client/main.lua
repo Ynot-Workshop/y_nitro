@@ -51,7 +51,6 @@ local function stopPurging()
     local vehicleState = Entity(cache.vehicle).state
     vehicleState:set('purgeNitro', false, true)
     PurgeLoop = false
-    exports.qbx_core:Notify(locale('notify.purge_completed'), 'inform')
 end
 
 local function nitrousPurgeLoop()
@@ -64,6 +63,7 @@ local function nitrousPurgeLoop()
             else
                 vehicleState:set('nitroPurge', 0, true)
                 stopPurging()
+                exports.qbx_core:Notify(locale('notify.purge_completed'), 'inform')
             end
             Wait(100)
         end
