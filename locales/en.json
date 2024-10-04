@@ -5,7 +5,9 @@
         "must_be_driver": "You must be the driver!",
         "canceled": "Canceled..",
         "need_turbo" : "The vehicle needs a turbo to use NOS!",
-        "needs_purge" : "Purge the system to continue using NOS."
+        "needs_purge" : "Purge the system to continue using NOS.",
+        "purge_completed" : "System completely purged!",
+        "nothing_to_purge": "There is nothing to purge!"
     },
     "progress": {
         "connecting": "Connecting NOS.."

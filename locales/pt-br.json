@@ -4,7 +4,10 @@
         "not_in_vehicle": "Você não está em um veículo",
         "must_be_driver": "Você deve ser o motorista!",
         "canceled": "Cancelado...",
-        "need_turbo" : "O veículo precisa de um turbo para usar Nitro!"
+        "need_turbo" : "O veículo precisa de um turbo para usar Nitro!",
+        "needs_purge" : "Purge o sistema para continuar usando Nitro.",
+        "purge_completed" : "Sistema completamente purgado!",
+        "nothing_to_purge": "Não há nada para purgar!"
     },
     "progress": {
         "connecting": "Conectando Nitro.."

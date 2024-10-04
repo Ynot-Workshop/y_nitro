@@ -51,6 +51,7 @@ local function stopPurging()
     local vehicleState = Entity(cache.vehicle).state
     vehicleState:set('purgeNitro', false, true)
     PurgeLoop = false
+    exports.qbx_core:Notify(locale('notify.purge_completed'), 'inform')
 end
 
 local function nitrousPurgeLoop()
@@ -115,7 +116,7 @@ qbx.entityStateHandler('purgeNitro', function(veh, netId, value)
     local leftPurge = StartParticleFxLoopedOnEntity('ent_sht_steam', veh, off.x - 0.5, off.y, off.z, 40.0, -20.0, 0.0, 0.3, false, false, false)
     UseParticleFxAssetNextCall('core')
     local rightPurge = StartParticleFxLoopedOnEntity('ent_sht_steam', veh, off.x + 0.5, off.y, off.z, 40.0, 20.0, 0.0, 0.3, false, false, false)
-    purge[veh] = {left = leftPurge, right = rightPurge}
+    purge[veh] = { left = leftPurge, right = rightPurge }
 end)
 
 local nitrousKeybind = lib.addKeybind({
@@ -126,11 +127,15 @@ local nitrousKeybind = lib.addKeybind({
     onPressed = function(_)
         if not cache.vehicle then return end
         local vehicleState = Entity(cache.vehicle).state
-        if nitroDelay  or nitrousActivated then return end
-        if (vehicleState?.nitro or 0) > 0 and (vehicleState.nitroPurge or 0) < 100 then
-            vehicleState:set('nitroFlames', true, true)
-            nitrousUseLoop()
+        if nitroDelay or nitrousActivated then return end
+        if (vehicleState?.nitro or 0) <= 0 then return end
+
+        if (vehicleState.nitroPurge or 0) >= 100 then
+            return exports.qbx_core:Notify(locale('notify.needs_purge'), 'error')
         end
+
+        vehicleState:set('nitroFlames', true, true)
+        nitrousUseLoop()
     end,
     onReleased = function(_)
         if not cache.vehicle then return end
@@ -146,14 +151,20 @@ local purgeKeybind = lib.addKeybind({
     onPressed = function(_)
         if not cache.vehicle then return end
         local vehicleState = Entity(cache.vehicle).state
-        if not nitrousActivated and (vehicleState?.nitroPurge or 0) > 0 then
-            vehicleState:set('purgeNitro', true, true)
-            nitrousPurgeLoop()
+        if nitrousActivated then return end
+
+        if (vehicleState?.nitroPurge or 0) <= 0 then
+            return exports.qbx_core:Notify(locale('notify.nothing_to_purge'), 'error')
         end
+
+        vehicleState:set('purgeNitro', true, true)
+        nitrousPurgeLoop()
     end,
     onReleased = function(_)
         if not cache.vehicle then return end
-        stopPurging()
+        if PurgeLoop then
+            stopPurging()
+        end
     end
 })
 

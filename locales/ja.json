@@ -5,7 +5,9 @@
         "must_be_driver": "運転席に座っている必要があります！",
         "canceled": "キャンセルしました...",
         "need_turbo": "NOSを使用するにはターボが必要です！",
-        "needs_purge": "NOSを継続して使用するにはシステムをパージしてください。"
+        "needs_purge": "NOSを継続して使用するにはシステムをパージしてください。",
+        "purge_completed": "システムが完全にパージされました！",
+        "nothing_to_purge": "パージするものはありません！"
     },
     "progress": {
         "connecting": "NOSを接続中..."
