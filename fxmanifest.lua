@@ -3,7 +3,7 @@ game 'gta5'
 
 description 'qbx_nitro'
 repository 'https://github.com/Qbox-project/qbx_nitro'
-version '1.0.0'
+version '1.0.1'
 
 ox_lib 'locale'
 shared_script '@ox_lib/init.lua'
