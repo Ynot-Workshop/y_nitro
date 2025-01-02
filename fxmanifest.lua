@@ -4,7 +4,7 @@ game 'gta5'
 author 'Ynot'
 description 'y_nitro'
 repository 'https://github.com/ynot-workshop/y_nitro'
-version '1.0.1'
+version '1.0.2'
 
 ox_lib 'locale'
 shared_script '@ox_lib/init.lua'
