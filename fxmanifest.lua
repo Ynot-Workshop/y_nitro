@@ -1,8 +1,9 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'qbx_nitro'
-repository 'https://github.com/Qbox-project/qbx_nitro'
+author 'Ynot'
+description 'y_nitro'
+repository 'https://github.com/ynot-workshop/y_nitro'
 version '1.0.1'
 
 ox_lib 'locale'

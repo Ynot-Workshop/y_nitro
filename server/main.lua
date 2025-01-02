@@ -1,4 +1,4 @@
-lib.versionCheck('Qbox-project/qbx_nitro')
+lib.versionCheck('ynot-workshop/y_nitro')
 
 exports.qbx_core:CreateUseableItem('nitrous', function(source)
     local netId = lib.callback.await("qbx_nitro:client:LoadNitrous", source)
